@@ -1,0 +1,83 @@
+{% load staticfiles %}
+
+{% include 'css.html' %}
+
+ <div id="wrapper">
+
+{% include 'navbar.html' %}
+
+       
+
+      <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Tables</h1>                  
+                
+                        
+                    
+                
+               
+
+            </div>
+                        <h2> List of Buildings</h2>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                     <th>Area Name</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>X</th>
+                                        <th>Y </th>
+                                        <th>Type</th>
+                                        <th>Further Test</th>
+                                        
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for construct in construction %}
+                                    <tr class="danger">
+                                        <td>{{ construct.building_d }}</td>
+                                        <td>{{ construct.building_1 }}</td>
+                                        <td>{{ construct.building_3 }}</td>
+                                        <td>{{ construct.x }}</td>
+                                         <td>{{ construct.y }}</td>
+                                        <td>{{ construct.dev_type_o}}</td>
+                                        <td>{{ construct.further_te}}</td>
+                                        
+                                        
+                                    <tr>
+                                        {% endfor %}
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <hr>
+                  
+                        
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

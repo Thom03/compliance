@@ -1,0 +1,175 @@
+{% load staticfiles %}
+{% load leaflet_tags %}
+{% include 'css.html' %}
+
+<style media="screen">
+         #nairobi{ width: 100%; height: 100% }
+     </style>
+
+ <div id="wrapper">
+{% include 'navbar.html' %}
+
+{% leaflet_js %}
+                {% leaflet_css %}
+        <script src="{% static 'js/leaflet-ajax/dist/leaflet.ajax.min.js' %}"></script>  
+     
+     
+          
+      
+
+       <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
+
+<script src="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
+
+
+
+
+
+
+<script src="https://www.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=OfLJAIJIG248uaq4XM2jAZcnGRUe8Afp "></script>
+
+
+
+
+
+
+<div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+
+
+            </div>
+
+            </head>
+        <body>
+   
+
+
+        <script type="text/javascript">
+
+        function map_init_basic (map, options) {
+
+
+
+
+
+            var mapquestOSM = L.tileLayer("https://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png", {
+  maxZoom: 24,
+  subdomains: ["otile1-s", "otile2-s", "otile3-s", "otile4-s"],
+  attribution: 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="https://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
+});
+
+var ortho = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoib3ZyZGMiLCJhIjoiRUtXeFFzZyJ9.ufnW36oCZo96m_L9QsAkYg', {
+     maxZoom: 24,
+  attribution: '<a href="https://mapbox.com/about/maps/">MapBox</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  subdomains:  'abcd', maxZoom: 18, maxNativeZoom: 18
+});
+
+var mapquestOAM = L.tileLayer("https://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
+  maxZoom: 24,
+  subdomains: ["otile1-s", "otile2-s", "otile3-s", "otile4-s"],
+  attribution: 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
+});
+var mapquestHYB = L.layerGroup([L.tileLayer("https://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
+  maxZoom: 24,
+  subdomains: ["otile1-s", "otile2-s", "otile3-s", "otile4-s"]
+}), L.tileLayer("https://{s}.mqcdn.com/tiles/1.0.0/hyb/{z}/{x}/{y}.png", {
+  maxZoom: 24,
+  subdomains: ["otile1-s", "otile2-s", "otile3-s", "otile4-s"],
+  attribution: 'Labels courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="https://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
+})]);          
+        
+
+
+
+
+        
+var viwandaniIcon = L.icon({
+        iconUrl: "{% static 'img/building.jpg' %}",
+        iconSize:     [27, 32], 
+        iconAnchor:   [16, 37], 
+        popupAnchor:  [0, -28]  
+        }); 
+
+
+   var viwandaniLayer = new L.GeoJSON.AJAX("{% url 'viwandani' %}", {
+
+                pointToLayer: function(feature, latlng){
+          return L.marker(latlng, {icon: viwandaniIcon});
+        },                  
+        onEachFeature:function(feature, layer) {
+          layer.bindPopup('<b> Name:' + feature.properties.building_1 + '</b><br>' +
+            '<b>Development Type: </b>'  +  feature.properties.dev_type_o + '<br>' +
+            '<b>Further Test Required: ' + feature.properties.further_te + '</b><br>' +
+            '<a>' + '<img src="' + feature.properties.building_7 + '" height="300px" width="300px"/>' + '</a>');
+            }
+        }).addTo(map);     
+ 
+
+
+
+ var baseMaps = {
+                "Aerial Imagery": mapquestOAM,
+                "Imagery with Streets": mapquestHYB,
+                "Satellite": ortho,
+                'Dark': MQ.darkLayer(),
+                "Street Map": mapquestOSM,
+                   
+                   
+                    
+                };
+
+
+                 var overlayMaps = {           
+                "Viwandani": viwandaniLayer,
+               
+                
+                
+                    };
+
+                
+
+      L.control.layers(baseMaps, overlayMaps,{collapsed:false}).addTo(map);     
+
+
+
+   
+}
+
+
+              
+
+
+                    
+                            
+                    
+
+                     
+                 
+            </script>
+             
+                {% leaflet_map "nairobi" callback="window.map_init_basic" %}
+        </body>
+    </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+      
+
+
+
+               
+
+
+{% include 'javascript.html' %}
